@@ -94,4 +94,12 @@ class CompleteResponse extends Response
     {
         return $this->getData()['reference'] ?? '';
     }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->extractRequestStatus() ?? '';
+    }
 }
