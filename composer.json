@@ -1,0 +1,23 @@
+{
+    "name": "ubrize/omnipay-maksekeskus",
+    "description": "Omnipay gateway for Maksekeskus payments",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Uldis Brize",
+            "email": "ubrize@me.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": { "Omnipay\\Maksekeskus\\" : "src/" }
+    },
+    "require": {
+      "omnipay/common": "~3.0"
+    },
+    "require-dev": {
+      "omnipay/tests": "~3.0",
+      "squizlabs/php_codesniffer": "^3",
+      "phpro/grumphp": "^0.14",
+      "php-coveralls/php-coveralls": "^2.1"
+    }
+}
