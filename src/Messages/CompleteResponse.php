@@ -64,7 +64,13 @@ class CompleteResponse extends Response
      */
     public function isPending(): bool
     {
-        return $this->extractRequestStatus() === self::STATUS_PENDING;
+        return in_array(
+            $this->extractRequestStatus(),
+            [
+                self::STATUS_PENDING,
+                self::STATUS_APPROVED
+            ]
+        , false);
     }
 
     /**
