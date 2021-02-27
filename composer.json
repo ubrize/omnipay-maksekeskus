@@ -8,16 +8,22 @@
             "email": "ubrize@me.com"
         }
     ],
-    "autoload": {
-      "psr-4": { "Omnipay\\Maksekeskus\\" : "src/" }
-    },
     "require": {
-      "omnipay/common": "~3.0"
+        "php": "^7.1",
+        "omnipay/common": "~3.0",
+        "ext-json": "*"
     },
     "require-dev": {
-      "omnipay/tests": "~3.0",
-      "squizlabs/php_codesniffer": "^3",
-      "phpro/grumphp": "^0.14",
-      "php-coveralls/php-coveralls": "^2.1"
+        "omnipay/tests": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Maksekeskus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omnipay\\Maksekeskus\\Tests\\": "tests/"
+        }
     }
 }

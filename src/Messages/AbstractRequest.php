@@ -14,41 +14,20 @@ use Psr\Http\Message\ResponseInterface as PsrResponse;
 abstract class AbstractRequest extends CommonAbstractRequest
 {
     /**
-     * @var string
-     */
-    protected $testApiEndpoint = 'https://api-test.maksekeskus.ee/v1/';
-
-    /**
-     * @var string
-     */
-    protected $testRedirectEndpoint = 'https://payment-test.maksekeskus.ee/pay/1/link.html';
-
-    /**
-     * @var string
-     */
-    protected $testPostEndpoint = 'https://payment-test.maksekeskus.ee/pay/1/signed.html';
-
-    /**
-     * @var string
-     */
-    protected $liveApiEndpoint = 'https://api.maksekeskus.ee/v1/';
-
-    /**
-     * @var string
-     */
-    protected $liveRedirectEndpoint = 'https://payment.maksekeskus.ee/pay/1/link.html';
-
-    /**
-     * @var string
-     */
-    protected $livePostEndpoint = 'https://payment.maksekeskus.ee/pay/1/signed.html';
-
-    /**
      * @return string
      */
     public function getApiEndpoint(): string
     {
-        return $this->getTestMode() ? $this->testApiEndpoint : $this->liveApiEndpoint;
+        return $this->getParameter('apiEndpoint');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setApiEndpoint(string $url): self
+    {
+        return $this->setParameter('apiEndpoint', $url);
     }
 
     /**
@@ -56,15 +35,33 @@ abstract class AbstractRequest extends CommonAbstractRequest
      */
     public function getRedirectEndpoint(): string
     {
-        return $this->getTestMode() ? $this->testRedirectEndpoint : $this->liveRedirectEndpoint;
+        return $this->getParameter('redirectEndpoint');
     }
 
     /**
-     * @return string
+     * @param string $url
+     * @return $this
      */
-    public function getPostEndpoint(): string
+    public function setRedirectEndpoint(string $url): self
     {
-        return $this->getTestMode() ? $this->testPostEndpoint : $this->livePostEndpoint;
+        return $this->setParameter('redirectEndpoint', $url);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPostEndpoint(): ?string
+    {
+        return $this->getParameter('postEndpoint');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setPostEndpoint(string $url): self
+    {
+        return $this->setParameter('postEndpoint', $url);
     }
 
     /**
@@ -86,7 +83,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
     /**
      * @return string
      */
-    public function getShopId()
+    public function getShopId(): string
     {
         return $this->getParameter('shopId');
     }
@@ -103,7 +100,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
     /**
      * @return string
      */
-    public function getSecretKey()
+    public function getSecretKey(): string
     {
         return $this->getParameter('secretKey');
     }

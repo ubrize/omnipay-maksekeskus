@@ -20,15 +20,12 @@ class CompleteResponse extends Response
     // Customer has not completed the payment during 30 minutes in PENDING state
     public const STATUS_EXPIRED = 'EXPIRED';
 
-    // This state is relevant to to some payment channels only –
-    // card payments, Citadele bank-link.
-    // On card payments this means that card data has been already verified,
-    // and transaction is waiting now payment.
+    // This state is relevant to to some payment channels only – card payments, Citadele bank-link.
+    // On card payments this means that card data has been already verified, and transaction is waiting now payment.
     // Regular card payments are however automatically completed.
     public const STATUS_APPROVED = 'APPROVED';
 
-    // Transaction has been successfully paid (green light for merchant to deliver
-    // goods/services).
+    // Transaction has been successfully paid (green light for merchant to deliver goods/services).
     // The funds will be transferred to merchant with next payout
     public const STATUS_COMPLETED = 'COMPLETED';
 
@@ -69,8 +66,9 @@ class CompleteResponse extends Response
             [
                 self::STATUS_PENDING,
                 self::STATUS_APPROVED
-            ]
-        , false);
+            ],
+            false
+        );
     }
 
     /**

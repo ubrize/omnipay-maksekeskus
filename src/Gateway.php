@@ -6,6 +6,7 @@ namespace Omnipay\Maksekeskus;
 
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Maksekeskus\Messages\CompleteRequest;
 use Omnipay\Maksekeskus\Messages\CreateTransactionRequest;
 use Omnipay\Maksekeskus\Messages\PurchaseRequest;
@@ -13,10 +14,20 @@ use Omnipay\Maksekeskus\Messages\ShopConfigurationRequest;
 
 class Gateway extends AbstractGateway
 {
-    public const SIGNATURE_TYPE_1 = 'V1';
-    public const SIGNATURE_TYPE_2 = 'V2';
-    public const SIGNATURE_TYPE_MAC = 'MAC';
-
+    /**
+     * @var string[] 
+     */
+    protected $defaults = [
+        'currency' => 'EUR',
+        'country' => 'ee',
+        'locale' => 'en',
+        'shopId' => 'random',
+        'secretKey' => 'random',
+        'apiEndpoint' => 'https://api.maksekeskus.ee/v1/',
+        'redirectEndpoint' => 'https://payment.maksekeskus.ee/pay/1/link.html',
+        'postEndpoint' => 'https://payment.maksekeskus.ee/pay/1/signed.html',
+    ];
+    
     /**
      * @return string
      */
@@ -30,12 +41,7 @@ class Gateway extends AbstractGateway
      */
     public function getDefaultParameters(): array
     {
-        return [
-            'testMode' => false,
-            'currency' => 'EUR',
-            'country' => 'ee',
-            'locale' => 'en',
-        ];
+        return $this->defaults;
     }
 
     /**
@@ -49,7 +55,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $options
-     * @return AbstractRequest|AbstractRequest
+     * @return PurchaseRequest|AbstractRequest
      */
     public function purchase(array $options = [])
     {
@@ -58,9 +64,9 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $options
-     * @return CompleteRequest|AbstractRequest
+     * @return CompleteRequest|RequestInterface
      */
-    public function completePurchase(array $options): CompleteRequest
+    public function completePurchase(array $options = []): RequestInterface
     {
         return $this->createRequest(CompleteRequest::class, $options);
     }
@@ -74,5 +80,122 @@ class Gateway extends AbstractGateway
         return $this->createRequest(CreateTransactionRequest::class, $options);
     }
 
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return $this->getParameter('country');
+    }
 
+    /**
+     * @param string $country
+     * @return $this
+     */
+    public function setCountry(string $country): self
+    {
+        return $this->setParameter('country', $country);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLocale(): string
+    {
+        return $this->getParameter('locale');
+    }
+
+    /**
+     * @param string $locale
+     * @return $this
+     */
+    public function setLocale(string $locale): self
+    {
+        return $this->setParameter('locale', $locale);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiEndpoint(): string
+    {
+        return $this->getParameter('apiEndpoint');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setApiEndpoint(string $url): self
+    {
+        return $this->setParameter('apiEndpoint', $url);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRedirectEndpoint(): string
+    {
+        return $this->getParameter('redirectEndpoint');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setRedirectEndpoint(string $url): self
+    {
+        return $this->setParameter('redirectEndpoint', $url);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPostEndpoint(): string
+    {
+        return $this->getParameter('postEndpoint');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setPostEndpoint(string $url): self
+    {
+        return $this->setParameter('postEndpoint', $url);
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopId(): string
+    {
+        return $this->getParameter('shopId');
+    }
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setShopId(string $id): self
+    {
+        return $this->setParameter('shopId', $id);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecretKey(): string
+    {
+        return $this->getParameter('secretKey');
+    }
+
+    /**
+     * @param string $key
+     * @return $this
+     */
+    public function setSecretKey(string $key): self
+    {
+        return $this->setParameter('secretKey', $key);
+    }
 }

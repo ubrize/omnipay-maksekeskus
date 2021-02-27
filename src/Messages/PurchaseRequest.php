@@ -15,7 +15,7 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getData(): array
     {
-        $data = [
+        return [
             'shop' => $this->getShopId(),
             'amount' => $this->getAmount(),
             'reference' => $this->getTransactionReference(),
@@ -23,8 +23,6 @@ class PurchaseRequest extends AbstractRequest
             'locale' => $this->getLocale(),
             'preferred_method' => $this->getPreferredMethod(),
         ];
-
-        return $data;
     }
 
     /**
